@@ -64,7 +64,7 @@ opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = process.env.JWT_SECRET_KEY;
 
 //middlewares
-server.use(express.static(path.resolve(__dirname,'build')));
+server.use(express.static(path.resolve(__dirname, 'build')));
 server.use(cookieParser());
 server.use(session({
   secret: process.env.SESSION_KEY,
@@ -84,7 +84,8 @@ server.use('/brands', isAuth(), brandsRouters.router);
 server.use('/auth', authRouters.router);
 server.use('/users', isAuth(), usersRouter.router);
 server.use('/cart', isAuth(), cartRouter.router);
-server.use('/orders', isAuth(), ordersRouter.router)
+server.use('/orders', isAuth(), ordersRouter.router);
+
 // this line we add to make react router work in case of other routes doesnt match
 server.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')));
 
@@ -168,7 +169,7 @@ server.post("/create-payment-intent", async (req, res) => {
     automatic_payment_methods: {
       enabled: true,
     },
-    metadata:{
+    metadata: {
       orderId
     }
   });
